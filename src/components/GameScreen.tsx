@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { INIT_CARDS, INIT_MOVES, UPDATE_START_TIME } from '../reducers/configReducer';
 import Card from './Card';
 import InfoBar from './InfoBar';
+import { Stage } from '../enums/Stage';
 
 const mapStateToProps = (state) => {
     return {
@@ -12,16 +13,15 @@ const mapStateToProps = (state) => {
 
 class GameScreen extends Component<any, any> {
 
-    private totalSymbolTypes = 4;
+    private totalSymbolTypes = 1;
     private symbols = [];
     private active = false;
 
     constructor(props) {
-        super(props)
-        this.init();
+        super(props);
     }
 
-    private init() {
+    private init(): void {
         this.active = true;
         this.symbols = this.getShuffledSymbols(this.totalSymbolTypes);
 
@@ -31,8 +31,8 @@ class GameScreen extends Component<any, any> {
     }
 
     private getShuffledSymbols(length: number): number[] {
-        let symbols: number[] = [];
-        let out: number[] = [];
+        const symbols: number[] = [];
+        const out: number[] = [];
         for (let i = 0; i < length; i++) {
             symbols.push(i, i)
         }
@@ -44,20 +44,24 @@ class GameScreen extends Component<any, any> {
     }
 
     public componentDidUpdate(): void {
-        if (!this.active && this.props.config.stage === 1) {
+        if (!this.active && this.isGameStage()) {
             this.init();
         }
-        if (this.props.config.stage !== 1) {
+        if (!this.isGameStage()) {
             this.active = false
         }
     }
 
+    private isGameStage(): boolean {
+        return this.props.config.stage === Stage.GAME;
+    }
+
     render() {
         const deck = this.props.config.deck || [];
-        const cards = deck.map((id, index) => <Card key={index} index={index} />)
+        const cards = deck.map((...arg) => <Card key={`card${arg[1]}`} index={arg[1]} />)
 
         return (
-            <div className={`game_screen ${this.props.config.stage !== 1 ? "hidden" : ""}`}>
+            <div className={`game_screen ${this.isGameStage() ? "" : "hidden"}`}>
                 <InfoBar />
                 <ul className="deck">
                     {cards}
