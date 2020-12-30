@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 class GameScreen extends Component<any, any> {
 
-    private totalSymbolTypes = 1;
+    private totalSymbolTypes = 3;
     private symbols = [];
     private active = false;
 
