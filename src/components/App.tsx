@@ -9,7 +9,7 @@ class App extends Component<any, any> {
 
     render() {
         return (
-            <div className="App">
+            <div className="app">
                 <HomeScreen />
                 <GameScreen />
                 <ScoreScreen />

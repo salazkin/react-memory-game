@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Stage } from '../enums/Stage';
 import { UPDATE_CARD, UPDATE_COMPLETE_TIME, UPDATE_LOCKED, UPDATE_MOVES, UPDATE_STAGE } from '../reducers/configReducer';
- 
+
 const FLIP_DELAY = 500;
 
 const mapStateToProps = (state, props) => {
@@ -61,14 +61,14 @@ class Card extends Component<any, any> {
 
     private getCardClassName(): string {
         let keys = [];
-        if (this.props.visible) { keys.push("open") };
-        if (this.props.locked) { keys.push("locked") };
-        return `card ${keys.join(" ")}`
+        if (this.props.visible) { keys.push("deck__card_open") };
+        if (this.props.locked) { keys.push("deck__card_locked") };
+        return `deck__card ${keys.join(" ")}`
     }
 
     render() {
         return (
-            <li ref="card" className={this.getCardClassName()} onClick={this.onClick} >
+            <li className={this.getCardClassName()} onClick={this.onClick} >
                 {this.props.visible && <i className={`fa fa-${this.cardIds[this.props.id]}`}></i>}
             </li>
         );

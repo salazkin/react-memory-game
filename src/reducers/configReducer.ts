@@ -26,7 +26,7 @@ type Config = {
     deck: CardConfig[]
 }
 
-const configReducer = (state: Config, action) => {
+const configReducer = (state: Config, action: any) => {
     switch (action.type) {
         case INIT_CARDS:
             return produce(state, draft => { draft.deck = action.value; });

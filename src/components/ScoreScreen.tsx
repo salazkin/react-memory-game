@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { UPDATE_STAGE } from '../reducers/configReducer';
 import { Stage } from '../enums/Stage';
+import { UPDATE_STAGE } from '../reducers/configReducer';
 
 const EXIT_DELAY = 1500;
 
@@ -34,9 +34,11 @@ class ScoreScreen extends Component<any, any> {
     render() {
 
         return (
-            <div className={`score_screen ${this.props.config.stage !== Stage.RESULT ? "hidden" : ""}`}>
+            <div className={`screen ${this.props.config.stage !== Stage.RESULT ? "screen__hidden" : ""}`}>
                 <div className="modal">
-                    SCORE: {`${this.getScoreValue()}`}
+                    <div className="modal__title">
+                        SCORE: {`${this.getScoreValue()}`}
+                    </div>
                 </div>
             </div>
         );

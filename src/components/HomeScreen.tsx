@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { UPDATE_STAGE } from '../reducers/configReducer';
 import { Stage } from '../enums/Stage';
+import { UPDATE_STAGE } from '../reducers/configReducer';
 
 const mapStateToProps = (state) => {
     return {
@@ -22,9 +22,9 @@ class HomeScreen extends Component<any, any> {
 
     render() {
         return (
-            <div className={`home_screen ${this.props.config.stage !== Stage.HOME ? "hidden" : ""}`}>
+            <div className={`screen ${this.props.config.stage !== Stage.HOME ? "screen__hidden" : ""}`}>
                 <div className={`modal`}>
-                    <button className="start_btn" onClick={this.onClick}>START</button>
+                    <button className="modal__button" onClick={this.onClick}>START</button>
                 </div>
             </div>
         );

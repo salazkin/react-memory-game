@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Stage } from '../enums/Stage';
 import { INIT_CARDS, INIT_MOVES, UPDATE_START_TIME } from '../reducers/configReducer';
 import Card from './Card';
 import InfoBar from './InfoBar';
-import { Stage } from '../enums/Stage';
 
 const mapStateToProps = (state) => {
     return {
@@ -61,7 +61,7 @@ class GameScreen extends Component<any, any> {
         const cards = deck.map((...arg) => <Card key={`card${arg[1]}`} index={arg[1]} />)
 
         return (
-            <div className={`game_screen ${this.isGameStage() ? "" : "hidden"}`}>
+            <div className={`screen ${this.isGameStage() ? "" : "screen__hidden"}`}>
                 <InfoBar />
                 <ul className="deck">
                     {cards}
