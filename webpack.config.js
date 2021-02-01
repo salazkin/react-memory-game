@@ -6,7 +6,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js']
     },
     output: {
-        path: path.join(__dirname, '/dist'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     module: {
@@ -16,9 +16,26 @@ module.exports = {
                 loader: 'ts-loader'
             },
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
+                test: /\.s[ac]ss$/i,
+                use: ["style-loader", "css-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                        },
+                    },]
             }
         ]
+    },
+    devtool: "source-map",
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
+        host: '127.0.0.1',
+        historyApiFallback: true,
+        port: 8015,
+        open: true
     }
-}
+
+
+};
+
