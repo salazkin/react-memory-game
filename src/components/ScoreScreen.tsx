@@ -1,49 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Stage } from '../enums/Stage';
-import { UPDATE_STAGE } from '../reducers/configReducer';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { ScoreState } from "../reducers/scoreReducer";
 
 const EXIT_DELAY = 1500;
 
-const mapStateToProps = (state) => {
-    return {
-        config: state.config
-    }
+const getScoreValue = (scoreData: ScoreState): number => {
+    const seconds = (scoreData.completeTime - scoreData.startTime) / 1000;
+    const ratio = Math.max(1, scoreData.moves * 10 + seconds);
+    return Math.floor(100000 / ratio);
 };
 
-class ScoreScreen extends Component<any, any> {
+const ScoreScreen = (props: any) => {
+    const scoreData = useSelector((state: any) => state.score);
 
-    private active = false;
+    useEffect(() => {
+        setTimeout(() => {
+            props.history.push("/");
+        }, EXIT_DELAY);
+    });
 
-    public componentDidUpdate(): void {
-        if (!this.active && this.props.config.stage === Stage.RESULT) {
-            this.active = true;
-            setTimeout(() => {
-                this.active = false;
-                this.props.dispatch({ type: UPDATE_STAGE, value: Stage.HOME });
-            }, EXIT_DELAY)
-        }
-    }
-
-    private getScoreValue(): number {
-        const config = this.props.config;
-        let seconds = (config.completeTime - config.startTime) / 1000;
-        return Math.floor(100000 / (config.moves * 10 + seconds));
-    }
-
-    render() {
-
-        return (
-            <div className={`screen ${this.props.config.stage !== Stage.RESULT ? "screen__hidden" : ""}`}>
-                <div className="modal">
-                    <div className="modal__title">
-                        SCORE: {`${this.getScoreValue()}`}
-                    </div>
-                </div>
+    return (
+        <div className="modal">
+            <div className="modal__title">
+                SCORE: {`${getScoreValue(scoreData)}`}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
-
-export default connect(mapStateToProps)(ScoreScreen); 
+export default ScoreScreen;

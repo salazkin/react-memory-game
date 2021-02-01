@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import '../css/Styles.css';
-import GameScreen from './GameScreen';
-import HomeScreen from './HomeScreen';
-import ScoreScreen from './ScoreScreen';
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import "../css/styles.scss";
+import GameScreen from "./GameScreen";
+import HomeScreen from "./HomeScreen";
+import ScoreScreen from "./ScoreScreen";
 
-class App extends Component<any, any> {
-
-
-    render() {
-        return (
-            <div className="app">
-                <HomeScreen />
-                <GameScreen />
-                <ScoreScreen />
+const App = () => {
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Route path="/" exact component={HomeScreen} />
+                <Route path="/game" exact component={GameScreen} />
+                <Route path="/score" exact component={ScoreScreen} />
             </div>
-        );
-    }
-}
-
+        </BrowserRouter>
+    );
+};
 
 export default App;
